@@ -1,11 +1,17 @@
 <!DOCTYPE HTML>
 <script>
-// run first counter refresh
-getCountersFromHTTP();
-
 // initialize button click event
 safari.application.addEventListener("command", function() {
   openOurTab();
+}, false);
+
+// run counter refresh
+safari.application.addEventListener("validate", function() {
+  findOurTab(function(tab) {
+    if(!tab || !refreshTimeout) {
+      getCountersFromHTTP();
+    }
+  });
 }, false);
 
 var REFRESH_INTERVAL = 10 * 1000; // 10 seconds
@@ -19,6 +25,10 @@ var refreshTimeout;
 var refreshCounter = 0;
 
 function findOurTab(callback) {
+  if (!safari.application.activeBrowserWindow) {
+    return callback(false);    
+  }
+  
   var foundTab, windowTabs = safari.application.activeBrowserWindow.tabs;
   for (var i=0; i<windowTabs.length; i++) {
       if (windowTabs[i].url && windowTabs[i].url.match(URLEXP)) {
