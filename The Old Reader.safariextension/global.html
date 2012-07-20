@@ -1,7 +1,22 @@
 <!DOCTYPE HTML>
 <script>
+var REFRESH_INTERVAL = 10 * 1000; // 10 seconds
+var HTTP_REFRESH_INTERVAL = 90;   // 10 seconds * 90 = 15 minutes
+var WINDOW = safari.application.openBrowserWindow();
+var SSL = false;
+var URLEXP = /^http:\/\/(?:www\.)?theoldreader\.com/
+
+var refreshTimeout;
+var refreshCounter = 0;
+
 // initialize button click event
 safari.application.addEventListener("command", function() {
+  findOurTab(function(tab) {
+    if(!tab || safari.extension.toolbarItems[0].badge == 0) {
+      getCountersFromHTTP();
+    }
+  });
+
   openOurTab();
 }, false);
 
@@ -13,16 +28,6 @@ safari.application.addEventListener("validate", function() {
     }
   });
 }, false);
-
-var REFRESH_INTERVAL = 10 * 1000; // 10 seconds
-var HTTP_REFRESH_INTERVAL = 90;   // 10 seconds * 90 = 15 minutes
-var BADGE_BACKGROUND_COLOR = '#d73f31';
-var WINDOW = safari.application.openBrowserWindow();
-var SSL = false;
-var URLEXP = /^http:\/\/(?:www\.)?theoldreader\.com/
-
-var refreshTimeout;
-var refreshCounter = 0;
 
 function findOurTab(callback) {
   if (!safari.application.activeBrowserWindow) {
@@ -75,7 +80,7 @@ function updateIcon(count) {
   var buttons = safari.extension.toolbarItems;
   for (var i=0; i<buttons.length; i++) {
     buttons[i].badge = count;
-    buttons[i].toolTip = "An error occurred. You may not be logged in.";
+    buttons[i].toolTip = "The Old Reader";
   }
 }
 
@@ -163,7 +168,11 @@ function getCountersFromHTTP() {
         var feedData;
         try {
           feedData = JSON.parse(httpRequest.responseText);
-          refreshSucceeded(feedData);
+          if (feedData.error) {
+            refreshFailed();
+          } else {
+            refreshSucceeded(feedData);            
+          }
         } catch (exception) {
           console.log('Exception while parsing json: ' + exception);
           refreshFailed();
