@@ -4,28 +4,34 @@ var REFRESH_INTERVAL = 10 * 1000; // 10 seconds
 var HTTP_REFRESH_INTERVAL = 90;   // 10 seconds * 90 = 15 minutes
 var SSL = false;
 var URLEXP = /^http:\/\/(?:www\.)?theoldreader\.com/
+var RUNNING = false;
 
 var refreshTimeout;
 var refreshCounter = 0;
 
 // initialize button click event
-safari.application.addEventListener("command", function() {
-  findOurTab(function(tab) {
-    if(!tab || safari.extension.toolbarItems[0].badge == 0) {
-      getCountersFromHTTP();
-    }
-  });
-
+safari.application.addEventListener("command", function(params) {
   openOurTab();
 }, false);
 
 // run counter refresh
-safari.application.addEventListener("validate", function() {
-  findOurTab(function(tab) {
-    if(!tab || !refreshTimeout) {
-      getCountersFromHTTP();
-    }
-  });
+safari.application.addEventListener("validate", function(params) {
+  var count = 0, buttons = safari.extension.toolbarItems;
+  for (var i=0; i<buttons.length; i++) {
+    if(buttons[i].badge > 0) count = buttons[i].badge;
+    if(buttons[i].toolTip == "Loading") RUNNING = false;
+  }
+  updateIcon(count);
+
+  if(!RUNNING) {
+    RUNNING = true;
+    
+    findOurTab(function(tab) {
+      if(!tab || !refreshTimeout) {
+        getCountersFromHTTP();
+      }
+    });    
+  }
 }, false);
 
 function findOurTab(callback) {
@@ -102,7 +108,7 @@ function parseCounters(feedData) {
 }
 
 function getCounters() {
-  if (refreshTimeout) { window.clearInterval(refreshTimeout) }
+  if (refreshTimeout) { window.clearTimeout(refreshTimeout) }
   refreshCounter++;
 
   findOurTab(function(tab) {
@@ -192,6 +198,7 @@ function scheduleRefreshForce() {
 }
 
 function scheduleRefresh(interval) {
+  if (refreshTimeout) { window.clearTimeout(refreshTimeout) }
   refreshTimeout = window.setTimeout(getCounters, REFRESH_INTERVAL);
 }
 </script>

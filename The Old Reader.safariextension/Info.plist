@@ -31,6 +31,8 @@
 				<string>icon-16.png</string>
 				<key>Label</key>
 				<string>The Old Reader</string>
+				<key>Tool Tip</key>
+				<string>Loading</string>
 			</dict>
 		</array>
 	</dict>
