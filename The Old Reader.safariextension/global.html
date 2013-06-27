@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <script>
-var REFRESH_INTERVAL = safari.extension.settings.REFRESH_INTERVAL * 1000;
-var HTTP_REFRESH_INTERVAL = 900;  // 900 seconds = 15 minutes
+var REFRESH_INTERVAL = 10 * 1000; // 10 seconds
+var HTTP_REFRESH_INTERVAL = safari.extension.settings.COUNTER_REFRESH_INTERVAL;
 var SSL = safari.extension.settings.SSL;
 var URLEXP = /^(http|https):\/\/(?:www\.)?theoldreader\.com(?:\/posts\/all)?/
 var RUNNING = false;
