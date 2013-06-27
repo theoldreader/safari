@@ -4,9 +4,9 @@
 <array>
 	<dict>
 		<key>DefaultValue</key>
-		<real>10</real>
+		<real>900</real>
 		<key>Key</key>
-		<string>REFRESH_INTERVAL</string>
+		<string>COUNTER_REFRESH_INTERVAL</string>
 		<key>MaximumValue</key>
 		<real>3600000</real>
 		<key>MinimumValue</key>
