@@ -10,18 +10,13 @@
 		<key>MaximumValue</key>
 		<real>3600000</real>
 		<key>MinimumValue</key>
-		<real>1</real>
+		<real>300</real>
 		<key>Secure</key>
 		<false/>
 		<key>Title</key>
 		<string>Update interval</string>
 		<key>Titles</key>
 		<array>
-			<string>5 seconds</string>
-			<string>10 seconds</string>
-			<string>15 seconds</string>
-			<string>30 seconds</string>
-			<string>1 minute</string>
 			<string>5 minutes</string>
 			<string>10 minutes</string>
 			<string>15 minutes</string>
@@ -33,11 +28,6 @@
 		<string>PopUpButton</string>
 		<key>Values</key>
 		<array>
-			<real>5</real>
-			<real>10</real>
-			<real>15</real>
-			<real>30</real>
-			<real>60</real>
 			<real>300</real>
 			<real>600</real>
 			<real>900</real>
@@ -63,7 +53,7 @@
 		<key>Values</key>
 		<array>
 			<string>theoldreader.com/</string>
-			<string>theoldreader.com/posts/all/</string>
+			<string>theoldreader.com/posts/all</string>
 		</array>
 	</dict>
 	<dict>
