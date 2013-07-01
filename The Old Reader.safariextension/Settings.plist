@@ -1,5 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
-<array/>
+<array>
+	<dict>
+		<key>DefaultValue</key>
+		<real>900</real>
+		<key>Key</key>
+		<string>COUNTER_REFRESH_INTERVAL</string>
+		<key>MaximumValue</key>
+		<real>3600000</real>
+		<key>MinimumValue</key>
+		<real>1</real>
+		<key>Secure</key>
+		<false/>
+		<key>Title</key>
+		<string>Update interval</string>
+		<key>Titles</key>
+		<array>
+			<string>5 seconds</string>
+			<string>10 seconds</string>
+			<string>15 seconds</string>
+			<string>30 seconds</string>
+			<string>1 minute</string>
+			<string>5 minutes</string>
+			<string>10 minutes</string>
+			<string>15 minutes</string>
+			<string>30 minutes</string>
+			<string>45 minutes</string>
+			<string>1 hour</string>
+		</array>
+		<key>Type</key>
+		<string>PopUpButton</string>
+		<key>Values</key>
+		<array>
+			<real>5</real>
+			<real>10</real>
+			<real>15</real>
+			<real>30</real>
+			<real>60</real>
+			<real>300</real>
+			<real>600</real>
+			<real>900</real>
+			<real>1800</real>
+			<real>2700</real>
+			<real>3600</real>
+		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<string>theoldreader.com/</string>
+		<key>Key</key>
+		<string>LAND_PAGE</string>
+		<key>Title</key>
+		<string>Landing page</string>
+		<key>Titles</key>
+		<array>
+			<string>Home page</string>
+			<string>All items</string>
+		</array>
+		<key>Type</key>
+		<string>RadioButtons</string>
+		<key>Values</key>
+		<array>
+			<string>theoldreader.com/</string>
+			<string>theoldreader.com/posts/all/</string>
+		</array>
+	</dict>
+	<dict>
+		<key>DefaultValue</key>
+		<false/>
+		<key>Key</key>
+		<string>SSL</string>
+		<key>Title</key>
+		<string>Use a secure connection (HTTPS)</string>
+		<key>Type</key>
+		<string>CheckBox</string>
+	</dict>
+</array>
 </plist>

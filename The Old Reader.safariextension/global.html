@@ -1,9 +1,9 @@
 <!DOCTYPE HTML>
 <script>
 var REFRESH_INTERVAL = 10 * 1000; // 10 seconds
-var HTTP_REFRESH_INTERVAL = 900;  // 900 seconds = 15 minutes
-var SSL = false;
-var URLEXP = /^http:\/\/(?:www\.)?theoldreader\.com/
+var HTTP_REFRESH_INTERVAL = safari.extension.settings.COUNTER_REFRESH_INTERVAL;
+var SSL = safari.extension.settings.SSL;
+var URLEXP = /^(http|https):\/\/(?:www\.)?theoldreader\.com(?:\/posts\/all)?/
 var RUNNING = false;
 
 var refreshTimeout;
@@ -52,14 +52,14 @@ function findOurTab(callback) {
 function openOurTab() {
   findOurTab(function(tab) {
     if (tab) {
-      tab.url = (SSL ? 'https' : 'http') + "://theoldreader.com/";
+      tab.url = (SSL ? 'https://' : 'http://') + safari.extension.settings.LAND_PAGE;
       tab.activate();
     } else {
       if (safari.application.activeBrowserWindow.activeTab.url) {
           var newTab = safari.application.activeBrowserWindow.openTab();
-          newTab.url = (SSL ? 'https' : 'http') + "://theoldreader.com/";
+          newTab.url = (SSL ? 'https://' : 'http://') + safari.extension.settings.LAND_PAGE;
       } else {
-          safari.application.activeBrowserWindow.activeTab.url = (SSL ? 'https' : 'http') + "://theoldreader.com/";
+          safari.application.activeBrowserWindow.activeTab.url = (SSL ? 'https://' : 'http://') + safari.extension.settings.LAND_PAGE;
       }
     }
   });
@@ -187,7 +187,7 @@ function getCountersFromHTTP() {
   }
 
   try {
-    httpRequest.open('GET', 'http://theoldreader.com/feeds/counts.json', true);
+    httpRequest.open('GET', (SSL ? 'https://' : 'http://') + 'theoldreader.com/feeds/counts.json', true);
     httpRequest.send(null);
   } catch (exception) {
     console.log('Exception while fetching data: ' + exception);
