@@ -5,7 +5,7 @@
 	<key>Author</key>
 	<string>The Old Reader</string>
 	<key>Builder Version</key>
-	<string>9537.85.10.17.1</string>
+	<string>11601.1.56</string>
 	<key>CFBundleDisplayName</key>
 	<string>The Old Reader</string>
 	<key>CFBundleIdentifier</key>
@@ -28,7 +28,7 @@
 				<key>Identifier</key>
 				<string>theoldreader</string>
 				<key>Image</key>
-				<string>icon-16.png</string>
+				<string>toolbar-icon.png</string>
 				<key>Label</key>
 				<string>The Old Reader</string>
 				<key>Tool Tip</key>
@@ -39,12 +39,22 @@
 	<key>Content</key>
 	<dict>
 		<key>Scripts</key>
-		<dict/>
+		<dict>
+			<key>End</key>
+			<array>
+				<string>reader.js</string>
+			</array>
+		</dict>
+		<key>Whitelist</key>
+		<array>
+			<string>https://theoldreader.com/*</string>
+			<string>http://theoldreader.com/*</string>
+		</array>
 	</dict>
 	<key>Description</key>
 	<string>Notifies you about unread items in your The Old Reader account</string>
 	<key>DeveloperIdentifier</key>
-	<string>BDZY8YJ2VQ</string>
+	<string>0000000000</string>
 	<key>ExtensionInfoDictionaryVersion</key>
 	<string>1.0</string>
 	<key>Permissions</key>

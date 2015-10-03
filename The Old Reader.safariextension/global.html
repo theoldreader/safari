@@ -40,6 +40,23 @@ safari.application.addEventListener("validate", function(params) {
   }
 }, false);
 
+safari.application.addEventListener("message", function(messageEvent) {
+  if(messageEvent.name === "sendPageTitle") {
+    var match = /\((\d+)\)/.exec(messageEvent.message);
+    if (match && match[1]) {
+      count = match[1];
+    }
+    if(count) {
+      console.log("Found counter in our tab (" + count + "), no need to fetch counters via http");
+      updateIcon(count);
+    } else {
+      if ((Date.now() - lastHttpRefresh) >= (HTTP_REFRESH_INTERVAL*1000)) {
+        getCountersFromHTTP();
+      }
+    }
+  }
+},false);
+
 function findOurTab(callback) {
   if (!safari.application.activeBrowserWindow) {
     return callback(false);
@@ -99,14 +116,7 @@ function getCounters() {
   findOurTab(function(tab) {
     var count;
     if (tab && tab.title) {
-      var match = /\((\d+)\)/.exec(tab.title);
-      if (match && match[1]) {
-        count = match[1];
-      }
-    }
-    if (count) {
-      console.log("Found counter in our tab (" + count + "), no need to fetch counters via http");
-      updateIcon(count);
+      tab.page.dispatchMessage("getPageTitle");
       // First refresh after the tab is closed should go via HTTP, so we call RefreshForce here.
       scheduleRefreshForce();
     } else {
